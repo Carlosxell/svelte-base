@@ -1,9 +1,15 @@
 <script>
   import createRouter, { ROUTER_MODE, router } from '@spaceavocado/svelte-router';
-  // import createRouter, { ROUTER_MODE } from '@spaceavocado/svelte-router';
   import RouterView from '@spaceavocado/svelte-router/component/view';
-  import Test from '../views/Teste.svelte';
   import Home from '../views/Home.svelte';
+
+  // Webpack dynamic import
+  const asyncView = (view) => {
+    return new Promise((resolve) => {
+      const component = import(/* webpackChunkName: "view-[request]" */ `../views/${view}.svelte`);
+      resolve(component);
+    });
+  };
 
   createRouter({
     mode: ROUTER_MODE.HISTORY,
@@ -16,7 +22,7 @@
       {
         path: '/teste',
         name: 'TESTE',
-        component: Test,
+        component: asyncView(`Teste`),
         props: true,
       },
     ],
