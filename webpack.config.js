@@ -34,6 +34,7 @@ module.exports = {
             emitCss: true,
             hotReload: true,
             preprocess: [globalStyle(), sass(), scss(), require('autoprefixer')],
+            dev: !prod,
           },
         },
       },
